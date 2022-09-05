@@ -11,27 +11,29 @@
     <!-- Intro Card with start button -->
    <section class="intro-card">
     <header>
-        <h1>Coding Quiz Challenge</h1>
+        <h1 class="h1"></h1>
     </header>
-    <p>
-        Please answer the following 5 coding questions to the best of your abilities.
-        You will have 100 seconds to complete the 5 questions. Good Luck!!
-    </p>
-    <button id="start" class="start">Start Quiz</button>
+    <p class="about"></p>
+    <div class="start-button"></div>
    </section>
-<!-- Link to view the high scores  -->
-   <a href="">View High Scores</a>
-<!-- Timer  -->
-   <p>Time Remaining: <span id="timer-count "class="timer-count">100</span> second(s)</p>
+
+   <div class="high-time-box">
+    <!-- Link to view the high scores  -->
+        <a href="">View High Scores</a>
+   <!-- Timer  -->
+        <p>Time Remaining: <span id="timer-count "class="timer-count">100</span> second(s)</p>
+   </div>
 <!-- Container with all the questions  -->
 <section class="question-container">
    <div class="question">
     <h2 class="question-info"></h2>
-    <ol class="answers"></ol>
+    <ol class="answers">
+     
+    </ol>
 
    </div>
 </section>
-    <!-- Final score card  -->
+    <!-- Final score card 
     <div class="final-score">
         <h2>You're Done!!</h2>
         <p>Final Score: <span class="final-score"></span></p>
@@ -39,15 +41,15 @@
             <label for="initials">Enter Your Initials:</label>
             <input type="text" id="initials">
         </form>
-    </div>
+    </div> -->
     <!-- High Scores  -->
-    <div>
+    <!-- <div>
         <h2>High Scores</h2>
         <ol id="highscore" class="highscore">
         </ol>
         <button class="go-back">Go Back</button>
         <button class="reset">Reset High Scores</button>
-    </div>
+    </div> -->
 
 
     <script src="./Assets/script.js"></script>
