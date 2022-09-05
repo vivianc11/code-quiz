@@ -22,13 +22,32 @@
 <!-- Link to view the high scores  -->
    <a href="">View High Scores</a>
 <!-- Timer  -->
-   <p>Time Remaining: <span id="time-count "class="time-count"></span></p>
+   <p>Time Remaining: <span id="timer-count "class="timer-count">100</span> second(s)</p>
 <!-- Container with all the questions  -->
-<section class="questions">
-    
-</section>
+<section class="question-container">
+   <div class="question">
+    <h2 class="question-info"></h2>
+    <ol class="answers"></ol>
 
-    
+   </div>
+</section>
+    <!-- Final score card  -->
+    <div class="final-score">
+        <h2>You're Done!!</h2>
+        <p>Final Score: <span class="final-score"></span></p>
+        <form action="">
+            <label for="initials">Enter Your Initials:</label>
+            <input type="text" id="initials">
+        </form>
+    </div>
+    <!-- High Scores  -->
+    <div>
+        <h2>High Scores</h2>
+        <ol id="highscore" class="highscore">
+        </ol>
+        <button class="go-back">Go Back</button>
+        <button class="reset">Reset High Scores</button>
+    </div>
 
 
     <script src="./Assets/script.js"></script>
