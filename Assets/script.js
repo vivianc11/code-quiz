@@ -6,6 +6,7 @@ var start = document.querySelector(".start-button");
 var timeCounter = document.querySelector(".timer-count");
 var questionInfo = document.querySelector(".question-info");
 var answers = document.querySelector(".answers");
+var eval = document.querySelector('.eval');
 var finalScore = document.querySelector(".final-score");
 var initials = document.querySelector("#initials");
 var highScore = document.querySelector(".highscore");
@@ -24,6 +25,7 @@ var button4 = document.createElement('button');
 h1.textContent = "";
 var timer;
 var timerCount;
+var userChoice = "";
 var correct;
 var incorrect;
 var index = 0;
@@ -95,7 +97,24 @@ function displayQ() {
     button2.textContent = codingQuestions[index].answers.b;
     button3.textContent = codingQuestions[index].answers.c;
     button4.textContent = codingQuestions[index].answers.d;
+    evaluate();
+    
 }
+
+
+
+// Function to evaluate answer choice
+function evaluate() {
+    if (userChoice === codingQuestions[index].correctAnswer) {
+        eval.textContent = "Correct!😊";
+    } else {
+        eval.textContent = "Incorrect🙃";
+    }
+}
+
+// Function to display the final score card
+
+//Function to display the high scores
 
 // Timer Function
 function startTimer() {
@@ -117,4 +136,17 @@ answers.addEventListener("click", () => {
         index++;
         displayQ();
     }
+})
+
+button1.addEventListener('click', () => {
+    userChoice = button1.textContent;
+})
+button2.addEventListener('click', () => {
+    userChoice = button2.textContent;
+})
+button3.addEventListener('click', () => {
+    userChoice = button3.textContent;
+})
+button4.addEventListener('click', () => {
+    userChoice = button4.textContent;
 })
