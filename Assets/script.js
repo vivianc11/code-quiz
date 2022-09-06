@@ -4,14 +4,15 @@ var h1 = document.querySelector(".h1");
 var about = document.querySelector(".about");
 var start = document.querySelector(".start-button");
 var timerDisplay = document.querySelector(".timer-display");
+var formInput = document.querySelector(".form-input");
+var initials = document.querySelector(".initials");
 var questionInfo = document.querySelector(".question-info");
 var answers = document.querySelector(".answers");
 var eval = document.querySelector('.eval');
-var finalScore = document.querySelector(".final-score");
-var initials = document.querySelector("#initials");
-var highScore = document.querySelector(".highscore");
-var goBack = document.querySelector(".go-back");
-var reset = document.querySelector(".reset");
+var clearScores = document.querySelector('.clear-high-score-button');
+var goBack = document.querySelector('.go-back-button');
+var viewHighScore = document.querySelector('.view-high-score');
+// Creating needed elements, some with certain attributes, and setting them to a variable
 var startBtn = document.createElement('button');
 var option1Li = document.createElement('li');
 var option2Li = document.createElement('li');
@@ -21,6 +22,14 @@ var button1 = document.createElement('button');
 var button2 = document.createElement('button');
 var button3 = document.createElement('button');
 var button4 = document.createElement('button');
+var initialInput = document.createElement('input');
+    initialInput.setAttribute('type', 'text');
+    initialInput.setAttribute('name', 'initials');
+    initialInput.setAttribute('id', 'initial-input');
+var submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit';
+var clearBtn = document.createElement('button');
+var goBackBtn = document.createElement('button');
 
 h1.textContent = "";
 var timer;
@@ -28,6 +37,7 @@ var timerCount;
 var userChoice = "";
 var userScore;
 var index = 0;
+var enteredInitials;
 
 var introCard = [
     {title: "Coding Quiz Challenge",
@@ -104,7 +114,7 @@ function displayQ() {
 // Function to evaluate answer choice
 function evaluate() {
     if (userChoice === codingQuestions[index].correctAnswer) {
-        userScore = userScore + 33.3;
+        userScore = userScore + 33;
         eval.textContent = "Correct!😊";
     } else {
         eval.textContent = "Incorrect🙃";
@@ -125,8 +135,29 @@ function finalCard() {
     answers.removeChild(option4Li);
     h1.textContent = "You're Done!!";
     about.textContent = `Final Score: ${userScore}`;
+    initials.textContent = "Enter your initials to be placed on the scoreboard: "
+    initials.appendChild(initialInput);
+    initials.appendChild(submitBtn);
+    
 }
 //Function to display the high scores
+function displayHighScore () {
+    h1.textContent = "High Scores";
+    about.textContent = "";
+    eval.textContent = "";
+    initials.removeChild(initialInput);
+    initials.removeChild(submitBtn);
+    var highScoreList = document.createElement('ol');
+    about.appendChild(highScoreList);
+    var highScoreListItems = document.createElement('li');
+    highScoreList.appendChild(highScoreListItems);
+    var storedInitials = localStorage.getItem('initials');
+    var storedScore = localStorage.getItem('score');
+    highScoreListItems.textContent = `${storedInitials} - ${storedScore}`;
+    goBack.appendChild(goBackBtn);
+    clearScores.appendChild(clearBtn);
+
+}
 
 // Timer Function
 function startTimer() {
@@ -179,5 +210,22 @@ button4.addEventListener('click', () => {
     index++;
 
 })
+
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    enteredInitials = document.getElementById('initial-input').value;
+    localStorage.setItem('initials', enteredInitials);
+    localStorage.setItem('score', userScore);
+    displayHighScore();
+})
+
+goBackBtn.addEventListener('click', Introduction);
+clearBtn.addEventListener('click', () => {
+    localStorage.clear();
+})
+
+viewHighScore.addEventListener('click', displayHighScore)
+
+
 
 Introduction();

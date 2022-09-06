@@ -8,21 +8,25 @@
     <link rel="stylesheet" href="./Assets/style.css">
 </head>
 <body>
-    <div class="high-time-box">
+    <header>
+        <div class="high-time-box">
         <!-- Link to view the high scores  -->
-            <a href="">View High Scores</a>
+            <a class="view-high-score" href="">View High Scores</a>
        <!-- Timer  -->
             <p>Time Remaining: <span id="timer-display "class="timer-display">60</span> second(s)</p>
-    </div>
+        </div>
+    </header>
     <!-- Intro/Final Card with start button -->
    <section class="intro-card">
-    <header>
-        <h1 class="h1"></h1>
-    </header>
+    <h1 class="h1"></h1>
     <p class="about"></p>
-    <div class="start-button final-card-button"></div>
+    <div class="start-button final-card-button clear-high-score-button go-back-button"></div>
    </section>
-
+   <section class="form-input">
+    <form action="">
+        <label class="initials" for="initials"></label>
+    </form>
+   </section>
 <!-- Container with all the questions  -->
 <section class="question-container">
    <div class="question">
@@ -34,23 +38,6 @@
 
     </div>
 </section>
-    <!-- Final score card 
-    <div class="final-score">
-        <h2>You're Done!!</h2>
-        <p>Final Score: <span class="final-score"></span></p>
-        <form action="">
-            <label for="initials">Enter Your Initials:</label>
-            <input type="text" id="initials">
-        </form>
-    </div> -->
-    <!-- High Scores  -->
-    <!-- <div>
-        <h2>High Scores</h2>
-        <ol id="highscore" class="highscore">
-        </ol>
-        <button class="go-back">Go Back</button>
-        <button class="reset">Reset High Scores</button>
-    </div> -->
 
 
     <script src="./Assets/script.js"></script>
