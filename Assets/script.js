@@ -19,17 +19,24 @@ var option2Li = document.createElement('li');
 var option3Li = document.createElement('li');
 var option4Li = document.createElement('li');
 var button1 = document.createElement('button');
+    button1.setAttribute('class', 'answer-buttons');
 var button2 = document.createElement('button');
+    button2.setAttribute('class', 'answer-buttons');
 var button3 = document.createElement('button');
+    button3.setAttribute('class', 'answer-buttons');
 var button4 = document.createElement('button');
+    button4.setAttribute('class', 'answer-buttons');
 var initialInput = document.createElement('input');
     initialInput.setAttribute('type', 'text');
     initialInput.setAttribute('name', 'initials');
     initialInput.setAttribute('id', 'initial-input');
 var submitBtn = document.createElement('button');
+    submitBtn.setAttribute('class', 'submit-button')
     submitBtn.textContent = 'Submit';
 var clearBtn = document.createElement('button');
+    clearBtn.textContent = "Clear High Scores"
 var goBackBtn = document.createElement('button');
+    goBackBtn.textContent = "Go Back";
 
 h1.textContent = "";
 var timer;
@@ -38,6 +45,13 @@ var userChoice = "";
 var userScore;
 var index = 0;
 var enteredInitials;
+var highScoreList;
+var highScoreListItems;
+var storedInitials;
+var storedScore;
+var newScore;
+var totalHighScores = [];
+var fromStorage = [];
 
 var introCard = [
     {title: "Coding Quiz Challenge",
@@ -75,6 +89,10 @@ var codingQuestions = [
 
 //Generating intro card
 function Introduction() {
+    timerCount = 60;
+    userScore = 0;
+    index = 0;
+    timerDisplay.textContent = 60;
     h1.textContent = introCard[0].title;
     about.textContent = introCard[0].about;
     startBtn.textContent = "Start Quiz";
@@ -83,11 +101,10 @@ function Introduction() {
 
 // Generating the quiz
 function startQuiz() {
-    timerCount = 60;
-    userScore = 0;
     h1.textContent = "";
     about.textContent = "";
     start.removeChild(startBtn);
+    viewHighScore.textContent = "";
     // display first question
     displayQ();
     startTimer();
@@ -133,7 +150,7 @@ function finalCard() {
     answers.removeChild(option2Li);
     answers.removeChild(option3Li);
     answers.removeChild(option4Li);
-    h1.textContent = "You're Done!!";
+    h1.textContent = "🎉You're Done!!🎉";
     about.textContent = `Final Score: ${userScore}`;
     initials.textContent = "Enter your initials to be placed on the scoreboard: "
     initials.appendChild(initialInput);
@@ -145,18 +162,17 @@ function displayHighScore () {
     h1.textContent = "High Scores";
     about.textContent = "";
     eval.textContent = "";
-    initials.removeChild(initialInput);
-    initials.removeChild(submitBtn);
-    var highScoreList = document.createElement('ol');
+    initials.textContent = "";
+    highScoreList = document.createElement('ol');
     about.appendChild(highScoreList);
-    var highScoreListItems = document.createElement('li');
-    highScoreList.appendChild(highScoreListItems);
-    var storedInitials = localStorage.getItem('initials');
-    var storedScore = localStorage.getItem('score');
-    highScoreListItems.textContent = `${storedInitials} - ${storedScore}`;
+    fromStorage = JSON.parse(localStorage.getItem('player'))
+    for (let i = 0; i < fromStorage.length; i++){
+        highScoreListItems = document.createElement('li');
+        highScoreListItems.textContent = `${fromStorage[i].enteredInitials} : ${fromStorage[i].userScore}`;
+        highScoreList.appendChild(highScoreListItems);
+    }
     goBack.appendChild(goBackBtn);
     clearScores.appendChild(clearBtn);
-
 }
 
 // Timer Function
@@ -176,6 +192,11 @@ function startTimer() {
 
 
 //eventlisteners
+viewHighScore.addEventListener('click', () => {
+    displayHighScore();
+    start.removeChild(startBtn);
+})
+
 start.addEventListener("click", startQuiz);
 
 answers.addEventListener("click", () => {
@@ -214,18 +235,23 @@ button4.addEventListener('click', () => {
 submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
     enteredInitials = document.getElementById('initial-input').value;
-    localStorage.setItem('initials', enteredInitials);
-    localStorage.setItem('score', userScore);
+    newScore = {enteredInitials, userScore};
+    totalHighScores.push(newScore);
+    localStorage.setItem('player', JSON.stringify(totalHighScores));
     displayHighScore();
 })
 
-goBackBtn.addEventListener('click', Introduction);
+goBackBtn.addEventListener('click', () => {
+    goBack.removeChild(goBackBtn);
+    clearScores.removeChild(clearBtn);
+    viewHighScore.textContent = "View High Scores"
+    Introduction();
+})
 clearBtn.addEventListener('click', () => {
     localStorage.clear();
+    totalHighScores = [];
+    highScoreList.textContent = "All Scores Cleared!"
+
 })
-
-viewHighScore.addEventListener('click', displayHighScore)
-
-
 
 Introduction();

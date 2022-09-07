@@ -1,7 +1,69 @@
-.high-time-box {
+:root {
+    --gray: #d9d9d9; 
+    --blue: #284b63;
+    --teal: #83c5be;
+    --darkergray: #8a817c;
+}
+
+body {
+    background-color: var(--gray);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+div button {
+    height: 50px;
+    width: 100px;
+    background-color: var(--teal);
+    font-weight: bolder;
+}
+
+.high-time-box,
+.button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    
+}
+
+.intro-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear-high-score-button,
+.go-back-button {
+    padding: 20px;
+}
+
+.about {
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+.eval-box {
+    border-top: 2px solid var(--darkergray);
+}
+
+.answer-buttons {
+    margin: 15px 0;
+    width: 120px;
+}
+
+.question-info {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    text-align: center;
+}
+
+.submit-button {
+    margin-left: 10px;
+    background-color: var(--teal);
+    font-weight: bolder;
 }
