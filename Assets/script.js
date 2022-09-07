@@ -4,7 +4,6 @@ var h1 = document.querySelector(".h1");
 var about = document.querySelector(".about");
 var start = document.querySelector(".start-button");
 var timerDisplay = document.querySelector(".timer-display");
-var formInput = document.querySelector(".form-input");
 var initials = document.querySelector(".initials");
 var questionInfo = document.querySelector(".question-info");
 var answers = document.querySelector(".answers");
@@ -12,12 +11,16 @@ var eval = document.querySelector('.eval');
 var clearScores = document.querySelector('.clear-high-score-button');
 var goBack = document.querySelector('.go-back-button');
 var viewHighScore = document.querySelector('.view-high-score');
+
 // Creating needed elements, some with certain attributes, and setting them to a variable
+// Creating a start button
 var startBtn = document.createElement('button');
+// Creating li's for the answer choices
 var option1Li = document.createElement('li');
 var option2Li = document.createElement('li');
 var option3Li = document.createElement('li');
 var option4Li = document.createElement('li');
+// Creating answer buttons 
 var button1 = document.createElement('button');
     button1.setAttribute('class', 'answer-buttons');
 var button2 = document.createElement('button');
@@ -26,19 +29,23 @@ var button3 = document.createElement('button');
     button3.setAttribute('class', 'answer-buttons');
 var button4 = document.createElement('button');
     button4.setAttribute('class', 'answer-buttons');
+// Creating input for high scores
 var initialInput = document.createElement('input');
     initialInput.setAttribute('type', 'text');
     initialInput.setAttribute('name', 'initials');
     initialInput.setAttribute('id', 'initial-input');
+// Creating submit button to submit input
 var submitBtn = document.createElement('button');
     submitBtn.setAttribute('class', 'submit-button')
     submitBtn.textContent = 'Submit';
+// Creating a button that clear scores
 var clearBtn = document.createElement('button');
     clearBtn.textContent = "Clear High Scores"
+// Creating a go back button that returns the user to the intro card
 var goBackBtn = document.createElement('button');
     goBackBtn.textContent = "Go Back";
 
-h1.textContent = "";
+// Creating needed variables
 var timer;
 var timerCount;
 var userChoice = "";
@@ -47,18 +54,16 @@ var index = 0;
 var enteredInitials;
 var highScoreList;
 var highScoreListItems;
-var storedInitials;
-var storedScore;
 var newScore;
 var totalHighScores = [];
 var fromStorage = [];
-
+// Intro card content
 var introCard = [
     {title: "Coding Quiz Challenge",
     about: "Please answer the following 3 coding questions to the best of your abilities. You will have 60 seconds to complete the 3 questions. Good Luck!!"
     }
 ]
-
+// Quiz questions content
 var codingQuestions = [
     {question: "1. What kind of brackets are used for declaring HTML elements?",
     answers: {
@@ -113,14 +118,17 @@ function startQuiz() {
 // Function to display questions one at a time
 function displayQ() {
     questionInfo.textContent = codingQuestions[index].question;
+    // Appending all the li's under the ol
     answers.appendChild(option1Li);
     answers.appendChild(option2Li);
     answers.appendChild(option3Li);
     answers.appendChild(option4Li);
+    // Appending all the buttons in the li's
     option1Li.appendChild(button1);
     option2Li.appendChild(button2);
     option3Li.appendChild(button3);
     option4Li.appendChild(button4);
+    // Filling in the buttons with the appropraite answer choices
     button1.textContent = codingQuestions[index].answers.a;
     button2.textContent = codingQuestions[index].answers.b;
     button3.textContent = codingQuestions[index].answers.c;
@@ -137,7 +145,7 @@ function evaluate() {
         eval.textContent = "Incorrect🙃";
         // If the wrong answer is chosen, then 10 seconds is taken away
         if (eval.textContent === "Incorrect🙃") {
-        timerCount = timerCount - 20;
+        timerCount = timerCount - 10;
         timerDisplay.textContent = timerCount;
     }
     return userScore;
@@ -145,11 +153,13 @@ function evaluate() {
 
 // Function to display the final score card
 function finalCard() {
+    // Clearing out the questions
     questionInfo.textContent = "";
     answers.removeChild(option1Li);
     answers.removeChild(option2Li);
     answers.removeChild(option3Li);
     answers.removeChild(option4Li);
+    // Final card content
     h1.textContent = "🎉You're Done!!🎉";
     about.textContent = `Final Score: ${userScore}`;
     initials.textContent = "Enter your initials to be placed on the scoreboard: "
@@ -157,14 +167,17 @@ function finalCard() {
     initials.appendChild(submitBtn);
     
 }
+
 //Function to display the high scores
 function displayHighScore () {
     h1.textContent = "High Scores";
     about.textContent = "";
     eval.textContent = "";
     initials.textContent = "";
+    // Creating ol element to list high scores
     highScoreList = document.createElement('ol');
     about.appendChild(highScoreList);
+    // Getting player information with inititals and score from localStorage
     fromStorage = JSON.parse(localStorage.getItem('player'))
     for (let i = 0; i < fromStorage.length; i++){
         highScoreListItems = document.createElement('li');
@@ -231,7 +244,8 @@ button4.addEventListener('click', () => {
     index++;
 
 })
-
+// Entered initials and userScore is stored as an object in an array under the variable newScore
+// newScore is then stringified to be stored in the localStorage
 submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
     enteredInitials = document.getElementById('initial-input').value;
@@ -247,11 +261,12 @@ goBackBtn.addEventListener('click', () => {
     viewHighScore.textContent = "View High Scores"
     Introduction();
 })
+// Clearing the high scores
 clearBtn.addEventListener('click', () => {
     localStorage.clear();
     totalHighScores = [];
     highScoreList.textContent = "All Scores Cleared!"
 
 })
-
+// When the page loads
 Introduction();
