@@ -19,18 +19,23 @@ div button {
     width: 100px;
     background-color: var(--teal);
     font-weight: bolder;
+    border-radius: 10px;
+}
+
+.high-time-box,
+.button-container,
+.intro-card {
+    display: flex;
 }
 
 .high-time-box,
 .button-container {
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
 .intro-card {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -53,6 +58,7 @@ div button {
 .answer-buttons {
     margin: 15px 0;
     width: 120px;
+    border-radius: 10px;
 }
 
 .question-info {
